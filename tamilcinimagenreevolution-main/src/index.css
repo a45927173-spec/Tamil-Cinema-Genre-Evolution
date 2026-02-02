@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Tamil Cinema inspired palette - warm golds, deep reds, rich earth tones */
+    --background: 30 15% 6%;
+    --foreground: 38 30% 92%;
+
+    --card: 30 12% 10%;
+    --card-foreground: 38 30% 92%;
+
+    --popover: 30 12% 10%;
+    --popover-foreground: 38 30% 92%;
+
+    --primary: 38 80% 55%;
+    --primary-foreground: 30 15% 6%;
+
+    --secondary: 8 70% 45%;
+    --secondary-foreground: 38 30% 92%;
+
+    --muted: 30 10% 18%;
+    --muted-foreground: 38 15% 55%;
+
+    --accent: 38 60% 40%;
+    --accent-foreground: 38 30% 92%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 30 15% 20%;
+    --input: 30 15% 20%;
+    --ring: 38 80% 55%;
+
+    --radius: 0.75rem;
+
+    /* Chart colors - vibrant cinema palette */
+    --chart-action: 8 75% 50%;
+    --chart-romance: 340 70% 55%;
+    --chart-drama: 38 80% 55%;
+    --chart-comedy: 48 90% 50%;
+    --chart-thriller: 260 50% 50%;
+    --chart-horror: 0 60% 35%;
+    --chart-family: 160 50% 45%;
+    --chart-musical: 200 70% 50%;
+
+    /* Gradient tokens */
+    --gradient-gold: linear-gradient(135deg, hsl(38 80% 55%) 0%, hsl(28 85% 45%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(30 15% 6%) 0%, hsl(30 20% 12%) 50%, hsl(30 15% 6%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(30 12% 12%) 0%, hsl(30 12% 8%) 100%);
+
+    /* Shadow tokens */
+    --shadow-glow: 0 0 60px hsl(38 80% 55% / 0.15);
+    --shadow-card: 0 4px 24px hsl(0 0% 0% / 0.4);
+
+    /* Sidebar tokens */
+    --sidebar-background: 30 12% 8%;
+    --sidebar-foreground: 38 30% 92%;
+    --sidebar-primary: 38 80% 55%;
+    --sidebar-primary-foreground: 30 15% 6%;
+    --sidebar-accent: 30 15% 15%;
+    --sidebar-accent-foreground: 38 30% 92%;
+    --sidebar-border: 30 15% 20%;
+    --sidebar-ring: 38 80% 55%;
+  }
+
+  .dark {
+    --background: 30 15% 6%;
+    --foreground: 38 30% 92%;
+    --card: 30 12% 10%;
+    --card-foreground: 38 30% 92%;
+    --popover: 30 12% 10%;
+    --popover-foreground: 38 30% 92%;
+    --primary: 38 80% 55%;
+    --primary-foreground: 30 15% 6%;
+    --secondary: 8 70% 45%;
+    --secondary-foreground: 38 30% 92%;
+    --muted: 30 10% 18%;
+    --muted-foreground: 38 15% 55%;
+    --accent: 38 60% 40%;
+    --accent-foreground: 38 30% 92%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 30 15% 20%;
+    --input: 30 15% 20%;
+    --ring: 38 80% 55%;
+    --sidebar-background: 30 12% 8%;
+    --sidebar-foreground: 38 30% 92%;
+    --sidebar-primary: 38 80% 55%;
+    --sidebar-primary-foreground: 30 15% 6%;
+    --sidebar-accent: 30 15% 15%;
+    --sidebar-accent-foreground: 38 30% 92%;
+    --sidebar-border: 30 15% 20%;
+    --sidebar-ring: 38 80% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, rgb(255 200 80) 0%, rgb(205 120 35) 50%, rgb(160 90 30) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+  }
+
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .bg-hero-image {
+    position: relative;
+    background-image: url('/whatsapp-hero.jpeg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    /* subtle warm tint + multiply blend to keep the cinematic look while showing the photo */
+    background-color: rgba(20,12,8,0.14);
+    background-blend-mode: multiply;
+    z-index: 0;
+    overflow: hidden;
+    /* make hero taller so the image is visible and centered nicely */
+    min-height: 520px;
+  }
+
+  .bg-hero-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* very light overlay so the image shows through clearly */
+    background: linear-gradient(180deg, rgba(6,6,6,0.02), rgba(6,6,6,0.05));
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+}
