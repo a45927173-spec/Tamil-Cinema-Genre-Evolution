@@ -9,6 +9,7 @@ export interface Movie {
   actor: string;
   revenue: number;
   posterUrl: string;
+  hidden?: boolean;
   // Optional metadata for detail views
   synopsis?: string;
   runtimeMinutes?: number;
@@ -50,7 +51,7 @@ const csvMovieData = [
   { title: "Velai Illa Pattathari 2", year: 2017, genre: "Action", rating: 2.9, director: "Soundarya Rajinikanth", actor: "Dhanush", revenue: 28260000, posterUrl: "/posters/29-velai-illa-pattathari-2.jpg" },
   { title: "96", year: 2018, genre: "Romance", rating: 3.8, director: "C. Prem Kumar", actor: "Vijay Sethupathi", revenue: 402510000, posterUrl: "/posters/30-96.jpg" },
   { title: "Kaatrin Mozhi", year: 2018, genre: "Comedy", rating: 3.8, director: "Radha Mohan", actor: "Jyothika", revenue: 568730000, posterUrl: "/posters/31-kaatrin-mozhi.jpg" },
-  { title: "Peranbu", year: 2018, genre: "Drama", rating: 3.6, director: "Ram", actor: "Mammootty", revenue: 656360000, posterUrl: "/posters//posters/83-peranbu.jpg" },
+  { title: "Peranbu", year: 2018, genre: "Drama", rating: 3.6, director: "Ram", actor: "Mammootty", revenue: 656360000, posterUrl: "/posters/83-peranbu.jpg", hidden: true },
   { title: "Vada Chennai", year: 2018, genre: "Action", rating: 3.9, director: "Vetrimaaran", actor: "Dhanush", revenue: 82380000, posterUrl: "/posters/33-vada-chennai.jpg" },
   { title: "Vishwaroopam II", year: 2018, genre: "Action", rating: 2.7, director: "Kamal Haasan", actor: "Kamal Haasan", revenue: 96480000, posterUrl: "/posters/34-vishwaroopam-ii.jpg" },
   { title: "Asuran", year: 2019, genre: "Action", rating: 3.8, director: "Vetrimaaran", actor: "Dhanush", revenue: 590130000, posterUrl: "/posters/35-asuran.jpg" },
@@ -98,7 +99,7 @@ const csvMovieData = [
   { title: "Maari", year: 2015, genre: "Drama", rating: 6.1, director: "Unknown", actor: "Unknown", revenue: 49530000, posterUrl: "/posters/79-maari.jpg" },
   { title: "Paiyaa", year: 2010, genre: "Drama", rating: 6.3, director: "Lingusamy", actor: "Karthi", revenue: 582180000, posterUrl: "/posters/81-paiyaa.jpg" },
   { title: "Sketch", year: 2018, genre: "Drama", rating: 4.977, director: "Unknown", actor: "Unknown", revenue: 137350000, posterUrl: "/posters/82-sketch.jpg" },
-  { title: "Peranbu", year: 2019, genre: "Drama", rating: 7.291, director: "Unknown", actor: "Unknown", revenue: 102750000, posterUrl: "/posters/83-peranbu.jpg" },
+  { title: "Peranbu", year: 2019, genre: "Drama", rating: 7.291, director: "Unknown", actor: "Unknown", revenue: 102750000, posterUrl: "/posters/83-peranbu.jpg", hidden: true },
   { title: "Aadai", year: 2019, genre: "Drama", rating: 6, director: "Unknown", actor: "Unknown", revenue: 289260000, posterUrl: "/posters/84-aadai.jpg" },
   { title: "Ponniyin Selvan: Part II", year: 2023, genre: "Drama", rating: 6.2, director: "Mani Ratnam", actor: "Vikram", revenue: 391900000, posterUrl: "/posters/86-ponniyin-selvan-part-ii.jpg" },
   { title: "Sura", year: 2010, genre: "Action", rating: 5.8, director: "S. P. Jananathan", actor: "Siddharth Bharathan", revenue: 10720000, posterUrl: "/posters/89-sura.jpg" },
