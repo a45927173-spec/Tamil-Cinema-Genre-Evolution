@@ -93,7 +93,7 @@ const csvMovieData = [
   { title: "Thug Life", year: 2025, genre: "Action", rating: 2.6, director: "Mani Ratnam", actor: "Kamal Haasan", revenue: 524110000, posterUrl: "/posters/73-thug-life.jpg" },
   { title: "Vidaamuyarchi", year: 2025, genre: "Action", rating: 3, director: "Magizh Thirumeni", actor: "Ajith Kumar", revenue: 128180000, posterUrl: "/posters/74-vidaamuyarchi.jpg" },
   { title: "Poojai", year: 2014, genre: "Drama", rating: 5.467, director: "Unknown", actor: "Unknown", revenue: 110560000, posterUrl: "/posters/75-poojai.jpg" },
-  { title: "Kaavalan", year: 2011, genre: "Drama", rating: 5.698, director: "Unknown", actor: "Unknown", revenue: 235310000, posterUrl: "/posters/77-kaavalan.jpg" },
+  { title: "Kaavalan", year: 2011, genre: "Drama", rating: 5.698, director: "Siddique", actor: "Vijay", revenue: 235310000, posterUrl: "/posters/77-kaavalan.jpg" },
   { title: "Kaaki Sattai", year: 2015, genre: "Drama", rating: 5.579, director: "Unknown", actor: "Unknown", revenue: 66450000, posterUrl: "/posters/78-kaaki-sattai.jpg" },
   { title: "Maari", year: 2015, genre: "Drama", rating: 6.1, director: "Unknown", actor: "Unknown", revenue: 49530000, posterUrl: "/posters/79-maari.jpg" },
   { title: "Paiyaa", year: 2010, genre: "Drama", rating: 6.3, director: "Unknown", actor: "Unknown", revenue: 582180000, posterUrl: "/posters/81-paiyaa.jpg" },
