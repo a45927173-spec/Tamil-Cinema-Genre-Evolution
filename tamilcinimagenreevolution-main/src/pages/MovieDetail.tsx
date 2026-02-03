@@ -161,25 +161,6 @@ const MovieDetail = () => {
                 </a>
               )}
             </div>
-
-            <section className="prose dark:prose-invert">
-              <h4 className="mt-6">More from {movie.director}</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-                {tamilCinemaMovies.filter((m) => m.director === movie.director && m.id !== movie.id).slice(0,4).map((m) => (
-                  <Link key={m.id} to={`/movies/${m.id}`} className="no-underline">
-                    <Card className="transition-shadow hover:shadow-lg">
-                      <CardContent className="flex items-center gap-3">
-                        <img src={m.posterUrl} alt={m.title} className="w-14 h-20 object-cover rounded" />
-                        <div>
-                          <div className="font-semibold">{m.title}</div>
-                          <div className="text-xs text-muted-foreground">{m.year}</div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            </section>
           </div>
         </div>
       </main>
