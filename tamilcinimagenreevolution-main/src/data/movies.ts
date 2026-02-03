@@ -96,7 +96,7 @@ const csvMovieData = [
   { title: "Kaavalan", year: 2011, genre: "Drama", rating: 5.698, director: "Siddique", actor: "Vijay", revenue: 235310000, posterUrl: "/posters/77-kaavalan.jpg" },
   { title: "Kaaki Sattai", year: 2015, genre: "Drama", rating: 5.579, director: "Unknown", actor: "Unknown", revenue: 66450000, posterUrl: "/posters/78-kaaki-sattai.jpg" },
   { title: "Maari", year: 2015, genre: "Drama", rating: 6.1, director: "Unknown", actor: "Unknown", revenue: 49530000, posterUrl: "/posters/79-maari.jpg" },
-  { title: "Paiyaa", year: 2010, genre: "Drama", rating: 6.3, director: "Unknown", actor: "Unknown", revenue: 582180000, posterUrl: "/posters/81-paiyaa.jpg" },
+  { title: "Paiyaa", year: 2010, genre: "Drama", rating: 6.3, director: "Lingusamy", actor: "Karthi", revenue: 582180000, posterUrl: "/posters/81-paiyaa.jpg" },
   { title: "Sketch", year: 2018, genre: "Drama", rating: 4.977, director: "Unknown", actor: "Unknown", revenue: 137350000, posterUrl: "/posters/82-sketch.jpg" },
   { title: "Peranbu", year: 2019, genre: "Drama", rating: 7.291, director: "Unknown", actor: "Unknown", revenue: 102750000, posterUrl: "/posters/83-peranbu.jpg" },
   { title: "Aadai", year: 2019, genre: "Drama", rating: 6, director: "Unknown", actor: "Unknown", revenue: 289260000, posterUrl: "/posters/84-aadai.jpg" },
