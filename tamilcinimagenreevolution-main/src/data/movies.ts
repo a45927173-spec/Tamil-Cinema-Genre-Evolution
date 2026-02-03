@@ -124,7 +124,7 @@ const csvMovieData = [
   { title: "Kodiyil Oruvan", year: 2021, genre: "Action", rating: 6.7, director: "Praveen Shankar", actor: "Ashok Selvan", revenue: 39480000, posterUrl: "/posters/169-kodiyil-oruvan.jpg" },
   { title: "Thodari", year: 2016, genre: "Thriller", rating: 6.5, director: "Prabhu Solomon", actor: "Dhanush", revenue: 308610000, posterUrl: "/posters/183-thodari.jpg" },
   { title: "Sei", year: 2022, genre: "Drama", rating: 6.6, director: "Hari Shankar", actor: "Vidya Balan", revenue: 44430000, posterUrl: "/posters/208-sei.jpg" },
-  { title: "Saravana", year: 2006, genre: "Drama", rating: 4.8, director: "Unknown", actor: "Unknown", revenue: 205370000, posterUrl: "/posters/213-saravana.jpg" },
+  { title: "Saravana", year: 2006, genre: "Drama", rating: 4.8, director: "K. S. Ravikumar", actor: "Simbu", revenue: 205370000, posterUrl: "/posters/213-saravana.jpg" },
   { title: "Kaaka Muttai", year: 2015, genre: "Drama", rating: 7.81, director: "Unknown", actor: "Unknown", revenue: 82200000, posterUrl: "/posters/214-kaaka-muttai.jpg" },
   { title: "Aadama Jaichomada", year: 2014, genre: "Drama", rating: 3.2, director: "Unknown", actor: "Unknown", revenue: 505100000, posterUrl: "/posters//posters/98-jai.jpg" },
   { title: "Valluvan", year: 2025, genre: "Action", rating: 7, director: "Shankar Sarathi", actor: "Chethan Cheenu", revenue: 47900000, posterUrl: "/posters/272-valluvan.jpg" },
