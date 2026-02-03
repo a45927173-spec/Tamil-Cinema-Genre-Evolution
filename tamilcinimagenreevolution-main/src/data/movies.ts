@@ -99,7 +99,7 @@ const csvMovieData = [
   { title: "Maari", year: 2015, genre: "Drama", rating: 6.1, director: "Unknown", actor: "Unknown", revenue: 49530000, posterUrl: "/posters/79-maari.jpg" },
   { title: "Paiyaa", year: 2010, genre: "Drama", rating: 6.3, director: "Lingusamy", actor: "Karthi", revenue: 582180000, posterUrl: "/posters/81-paiyaa.jpg" },
   { title: "Sketch", year: 2018, genre: "Drama", rating: 4.977, director: "Unknown", actor: "Unknown", revenue: 137350000, posterUrl: "/posters/82-sketch.jpg" },
-  { title: "Aadai", year: 2019, genre: "Drama", rating: 6, director: "Unknown", actor: "Unknown", revenue: 289260000, posterUrl: "/posters/84-aadai.jpg" },
+  { title: "Aadai", year: 2019, genre: "Drama", rating: 6, director: "Rathna Kumar", actor: "Vivek Prasanna", revenue: 289260000, posterUrl: "/posters/84-aadai.jpg" },
   { title: "Ponniyin Selvan: Part II", year: 2023, genre: "Drama", rating: 6.2, director: "Mani Ratnam", actor: "Vikram", revenue: 391900000, posterUrl: "/posters/86-ponniyin-selvan-part-ii.jpg" },
   { title: "Sura", year: 2010, genre: "Action", rating: 5.8, director: "S. P. Jananathan", actor: "Siddharth Bharathan", revenue: 10720000, posterUrl: "/posters/89-sura.jpg" },
   { title: "Vettai", year: 2012, genre: "Action", rating: 6.1, director: "Jai", actor: "Vishal", revenue: 39570000, posterUrl: "/posters/90-vettai.jpg" },
