@@ -5,7 +5,11 @@ import { tamilCinemaMovies } from "@/data/movies";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Calendar, User, Star } from "lucide-react";
+import { ArrowLeft, Calendar, User, Star, Edit3, Check, X, Repeat } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useMovieEdits } from "@/hooks/use-movie-edits";
+import { useToast } from "@/components/ui/use-toast";
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -49,11 +53,102 @@ const MovieDetail = () => {
   const synopsis = movie.synopsis || enriched?.synopsis;
   const runtimeMinutes = movie.runtimeMinutes || enriched?.runtimeMinutes;
   const languages = movie.languages || enriched?.languages;
-  // Build cast list from available sources and filter out meaningless entries like 'Unknown' or 'N/A'
-  const castListRaw = (movie.castList && movie.castList.length) ? movie.castList : (enriched?.castList ?? (movie.actor ? movie.actor.split(',').map(s => s.trim()) : []));
-  const castList = (castListRaw || []).map((c) => c.trim()).filter((c) => c && c.toLowerCase() !== 'unknown' && c.toLowerCase() !== 'n/a');
+
+  // Editable director & cast helper component
+  function EditableDirectorCast({ movie, enriched }: { movie: any; enriched: any | null }) {
+    const { edits, setMovieEdit, clearMovieEdit } = useMovieEdits();
+    const { toast } = useToast();
+
+    const saved = edits[movie.id] || {};
+
+    const baseCastRaw = (movie.castList && movie.castList.length) ? movie.castList : (enriched?.castList ?? (movie.actor ? movie.actor.split(',').map((s: string) => s.trim()) : []));
+
+    const appliedDirector = saved.director ?? movie.director ?? "";
+    const appliedActorSource = saved.actor ?? (Array.isArray(baseCastRaw) ? baseCastRaw.join(", ") : baseCastRaw || "");
+
+    const castList = (appliedActorSource || "").split(',').map((c) => c.trim()).filter((c) => c && c.toLowerCase() !== 'unknown' && c.toLowerCase() !== 'n/a');
+
+    const [editing, setEditing] = useState(false);
+    const [directorValue, setDirectorValue] = useState(appliedDirector);
+    const [actorValue, setActorValue] = useState(appliedActorSource);
+
+    // sync when not editing
+    useEffect(() => {
+      if (!editing) {
+        setDirectorValue(appliedDirector);
+        setActorValue(appliedActorSource);
+      }
+    }, [appliedDirector, appliedActorSource, editing]);
+
+    const onSave = () => {
+      setMovieEdit(movie.id, { director: directorValue.trim(), actor: actorValue.trim() });
+      setEditing(false);
+      toast({ title: "Saved", description: "Changes saved locally" });
+    };
+
+    const onCancel = () => {
+      setDirectorValue(appliedDirector);
+      setActorValue(appliedActorSource);
+      setEditing(false);
+    };
+
+    const onReset = () => {
+      clearMovieEdit(movie.id);
+      setEditing(false);
+      toast({ title: "Reset", description: "Local edits cleared" });
+    };
+
+    return (
+      <>
+        {editing ? (
+          <div className="space-y-3">
+            <div>
+              <label className="text-xs font-medium">Director</label>
+              <Input value={directorValue} onChange={(e) => setDirectorValue(e.target.value)} className="mt-1" />
+            </div>
+
+            <div>
+              <label className="text-xs font-medium">Cast (comma-separated)</label>
+              <Textarea value={actorValue} onChange={(e) => setActorValue(e.target.value)} className="mt-1" />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Button size="sm" onClick={onSave} className="gap-1"><Check className="w-4 h-4" /> Save</Button>
+              <Button size="sm" variant="ghost" onClick={onCancel} className="gap-1"><X className="w-4 h-4" /> Cancel</Button>
+              <Button size="sm" variant="ghost" onClick={onReset} className="gap-1"><Repeat className="w-4 h-4" /> Reset</Button>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="text-sm text-muted-foreground flex items-center gap-2">
+              <User className="w-4 h-4" />
+              <span className="font-medium">Director:</span>
+              <span>{appliedDirector}</span>
+              <div className="ml-auto">
+                <Button size="sm" variant="outline" onClick={() => setEditing(true)} className="gap-1"><Edit3 className="w-4 h-4" /> Edit</Button>
+              </div>
+            </div>
+
+            {castList.length > 0 && (
+              <div className="text-sm text-muted-foreground mt-2">
+                <span className="font-medium">Cast:</span> <span>{castList.join(', ')}</span>
+              </div>
+            )}
+          </>
+        )}
+      </>
+    );
+  }
+
+  // Build cast list (apply local edits if present)
+  const appliedActorSource = edits[movie.id]?.actor ?? (movie.castList && movie.castList.length ? movie.castList.join(', ') : (enriched?.castList ? enriched.castList.join(', ') : (movie.actor ?? "")));
+  const castList = (appliedActorSource || "").split(',').map((c) => c.trim()).filter((c) => c && c.toLowerCase() !== 'unknown' && c.toLowerCase() !== 'n/a');
   const imdbId = movie.imdbId || enriched?.imdbId;
   const imdbRating = movie.imdbRating || enriched?.imdbRating;
+
+  const { edits } = useMovieEdits();
+  const appliedDirectorHeader = edits[movie.id]?.director ?? movie.director;
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -88,18 +183,8 @@ const MovieDetail = () => {
                     <span>{movie.year}</span>
                   </div>
 
-                  {movie.director && (
-                    <div className="text-sm text-muted-foreground flex items-center gap-2">
-                      <User className="w-4 h-4" />
-                      <span className="font-medium">Director:</span> <span>{movie.director}</span>
-                    </div>
-                  )}
-
-                  {movie.actor && (
-                    <div className="text-sm text-muted-foreground">
-                      <span className="font-medium">Cast:</span> <span>{movie.actor}</span>
-                    </div>
-                  )}
+                  {/* Editable director & cast */}
+                  <EditableDirectorCast movie={movie} enriched={enriched} />
 
                   {movie.revenue && (
                     <div className="text-sm text-muted-foreground">
@@ -121,7 +206,7 @@ const MovieDetail = () => {
 
           <div className="w-full md:w-2/3">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">{movie.title}</h1>
-            <p className="text-muted-foreground mb-2">{movie.genre} · {movie.year} · Directed by {movie.director}</p>
+            <p className="text-muted-foreground mb-2">{movie.genre} · {movie.year} · Directed by {appliedDirectorHeader}</p>
 
             <div className="flex items-center gap-4 mb-4 text-sm">
               {runtimeMinutes && <div className="text-muted-foreground">{runtimeMinutes} min</div>}

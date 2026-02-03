@@ -1,15 +1,18 @@
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Clapperboard, Star, Search, Filter, ArrowLeft, Calendar, User, TrendingUp, ChevronLeft, ChevronRight } from "lucide-react";
+import { Clapperboard, Star, Search, Filter, ArrowLeft, Calendar, User, TrendingUp, ChevronLeft, ChevronRight, Edit3, Check, X, Repeat } from "lucide-react";
 import Header from "@/components/Header";
 import { tamilCinemaMovies } from "@/data/movies";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useMovieEdits } from "@/hooks/use-movie-edits";
+import { useToast } from "@/components/ui/use-toast";
 
 const Movies = () => {
   const [search, setSearch] = useState("");
@@ -32,12 +35,16 @@ const Movies = () => {
     return uniqueGenres.sort();
   }, []);
 
+  const { edits } = useMovieEdits();
+
   const filteredMovies = useMemo(() => {
     let filtered = tamilCinemaMovies.filter((movie) => {
+      const appliedDirector = edits[movie.id]?.director ?? movie.director ?? "";
+      const appliedActor = edits[movie.id]?.actor ?? movie.actor ?? "";
       const matchesSearch = 
         movie.title.toLowerCase().includes(search.toLowerCase()) ||
-        movie.director?.toLowerCase().includes(search.toLowerCase()) ||
-        movie.actor?.toLowerCase().includes(search.toLowerCase());
+        appliedDirector.toLowerCase().includes(search.toLowerCase()) ||
+        appliedActor.toLowerCase().includes(search.toLowerCase());
       const matchesGenre = genreFilter === "all" || movie.genre === genreFilter;
       return matchesSearch && matchesGenre;
     });
@@ -65,7 +72,7 @@ const Movies = () => {
     }
 
     return filtered;
-  }, [search, genreFilter, sortBy]);
+  }, [search, genreFilter, sortBy, edits]);
 
   // Pagination calculation
   const totalPages = Math.ceil(filteredMovies.length / itemsPerPage);
@@ -78,6 +85,99 @@ const Movies = () => {
     setCurrentPage(1);
     callback();
   };
+
+  // Component: editable director & cast UI for each movie.
+  function EditableDirectorCast({ movie }: { movie: any }) {
+    const { edits, setMovieEdit, clearMovieEdit } = useMovieEdits();
+    const { toast } = useToast();
+
+    const saved = edits[movie.id] || {};
+    const appliedDirector = saved.director ?? movie.director ?? "";
+    const appliedActor = saved.actor ?? movie.actor ?? "";
+
+    const [editing, setEditing] = useState(false);
+    const [directorValue, setDirectorValue] = useState(appliedDirector);
+    const [actorValue, setActorValue] = useState(appliedActor);
+
+    // keep inputs in sync when external edits change
+    useEffect(() => {
+      if (!editing) {
+        setDirectorValue(appliedDirector);
+        setActorValue(appliedActor);
+      }
+    }, [appliedDirector, appliedActor, editing]);
+
+    const onSave = () => {
+      setMovieEdit(movie.id, { director: directorValue.trim(), actor: actorValue.trim() });
+      setEditing(false);
+      toast({ title: "Saved", description: "Changes saved locally" });
+    };
+
+    const onCancel = () => {
+      setDirectorValue(appliedDirector);
+      setActorValue(appliedActor);
+      setEditing(false);
+    };
+
+    const onReset = () => {
+      clearMovieEdit(movie.id);
+      setDirectorValue(movie.director ?? "");
+      setActorValue(movie.actor ?? "");
+      setEditing(false);
+      toast({ title: "Reset", description: "Local edits cleared" });
+    };
+
+    return (
+      <div>
+        {!editing ? (
+          <div className="space-y-1">
+            {appliedDirector && (
+              <div className="flex items-center justify-between text-xs text-muted-foreground">
+                <div className="flex items-center gap-1">
+                  <User className="w-3 h-3 inline mr-1" />
+                  <span className="line-clamp-1">Dir: {appliedDirector}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button size="sm" variant="outline" onClick={() => setEditing(true)} className="gap-1">
+                    <Edit3 className="w-4 h-4" />
+                    Edit
+                  </Button>
+                  <Button size="sm" variant="ghost" onClick={onReset} className="gap-1 text-xs">
+                    <Repeat className="w-4 h-4" /> Reset
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {appliedActor && (
+              <div className="text-xs text-muted-foreground line-clamp-1">Cast: {appliedActor}</div>
+            )}
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <div className="text-xs text-muted-foreground">
+              <label className="text-[11px] font-medium">Director</label>
+              <Input value={directorValue} onChange={(e) => setDirectorValue(e.target.value)} placeholder="Director name" className="mt-1" />
+            </div>
+
+            <div className="text-xs text-muted-foreground">
+              <label className="text-[11px] font-medium">Cast (comma-separated)</label>
+              <Textarea value={actorValue} onChange={(e) => setActorValue(e.target.value)} className="mt-1" />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Button size="sm" onClick={onSave} className="gap-1">
+                <Check className="w-4 h-4" /> Save
+              </Button>
+              <Button size="sm" variant="ghost" onClick={onCancel} className="gap-1">
+                <X className="w-4 h-4" /> Cancel
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   const getGenreColor = (genre: string) => {
     const colors: Record<string, string> = {
@@ -318,7 +418,7 @@ const Movies = () => {
                       </div>
                     </div>
 
-                    {/* Movie Details */}
+                    {/* Movie Details (editable director & cast) */}
                     <CardContent className="p-4 flex-1 flex flex-col justify-between space-y-3 border-t border-muted/10">
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
@@ -333,18 +433,8 @@ const Movies = () => {
                           )}
                         </div>
 
-                        {movie.director && (
-                          <div className="text-xs text-muted-foreground line-clamp-1">
-                            <User className="w-3 h-3 inline mr-1" />
-                            Dir: {movie.director}
-                          </div>
-                        )}
-
-                        {movie.actor && (
-                          <div className="text-xs text-muted-foreground line-clamp-1">
-                            Cast: {movie.actor}
-                          </div>
-                        )}
+                        {/* Editable fields: Director & Cast */}
+                        <EditableDirectorCast movie={movie} />
                       </div>
 
                       {/* Footer */}
