@@ -274,7 +274,7 @@ const Movies = () => {
                   transition={{ delay: Math.min(index * 0.03, 0.2), duration: 0.3 }}
                 >
                   <Link to={`/movies/${movie.id}`} className="no-underline block">
-                    <Card className="overflow-hidden group transition-transform duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/50 h-full flex flex-col cursor-pointer max-w-[320px] rounded-xl border border-muted/20">
+                    <Card className={`overflow-hidden group transition-transform duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/50 h-full flex flex-col cursor-pointer ${movie.title?.toLowerCase().includes('kaak') ? 'max-w-[420px]' : 'max-w-[320px]'} rounded-xl border border-muted/20`}>
                     {/* Movie Poster */}
                     <div className="w-full">
                       <div className="relative w-full aspect-[2/3] bg-gradient-to-br from-primary/20 via-accent/10 to-muted overflow-hidden flex items-stretch justify-center rounded-t-xl">
