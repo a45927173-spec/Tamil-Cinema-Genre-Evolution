@@ -138,11 +138,11 @@ const Movies = () => {
                   <span className="line-clamp-1">Dir: {appliedDirector}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Button size="sm" variant="outline" onClick={() => setEditing(true)} className="gap-1">
+                  <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); setEditing(true); }} className="gap-1">
                     <Edit3 className="w-4 h-4" />
                     Edit
                   </Button>
-                  <Button size="sm" variant="ghost" onClick={onReset} className="gap-1 text-xs">
+                  <Button size="sm" variant="ghost" onClick={(e) => { e.stopPropagation(); onReset(); }} className="gap-1 text-xs">
                     <Repeat className="w-4 h-4" /> Reset
                   </Button>
                 </div>
@@ -166,10 +166,10 @@ const Movies = () => {
             </div>
 
             <div className="flex items-center gap-2">
-              <Button size="sm" onClick={onSave} className="gap-1">
+              <Button size="sm" onClick={(e) => { e.stopPropagation(); onSave(); }} className="gap-1">
                 <Check className="w-4 h-4" /> Save
               </Button>
-              <Button size="sm" variant="ghost" onClick={onCancel} className="gap-1">
+              <Button size="sm" variant="ghost" onClick={(e) => { e.stopPropagation(); onCancel(); }} className="gap-1">
                 <X className="w-4 h-4" /> Cancel
               </Button>
             </div>
