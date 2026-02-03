@@ -126,7 +126,7 @@ const csvMovieData = [
   { title: "Sei", year: 2022, genre: "Drama", rating: 6.6, director: "Hari Shankar", actor: "Vidya Balan", revenue: 44430000, posterUrl: "/posters/208-sei.jpg" },
   { title: "Saravana", year: 2006, genre: "Drama", rating: 4.8, director: "K. S. Ravikumar", actor: "Simbu", revenue: 205370000, posterUrl: "/posters/213-saravana.jpg" },
   { title: "Kaaka Muttai", year: 2015, genre: "Drama", rating: 7.81, director: "Unknown", actor: "Unknown", revenue: 82200000, posterUrl: "/posters/214-kaaka-muttai.jpg" },
-  { title: "Aadama Jaichomada", year: 2014, genre: "Drama", rating: 3.2, director: "Badri", actor: "Bobby Simha", revenue: 505100000, posterUrl: "/posters//posters/98-jai.jpg" },
+  { title: "Aadama Jaichomada", year: 2014, genre: "Drama", rating: 3.2, director: "Badri", actor: "Bobby Simha", revenue: 505100000, posterUrl: "/posters/217-aadama-jaichomada.jpg" },
   { title: "Valluvan", year: 2025, genre: "Action", rating: 7, director: "Shankar Sarathi", actor: "Chethan Cheenu", revenue: 47900000, posterUrl: "/posters/272-valluvan.jpg" },
   { title: "Pesaa Varigal", year: 2025, genre: "Drama", rating: 4.5, director: "Praveenth", actor: "Palaniraja dayanidy", revenue: 380900000, posterUrl: "/posters/273-pesaa-varigal.jpg" },
   { title: "FRANCIS: Chapter-1", year: 2025, genre: "Action", rating: 7, director: "Infant raj", actor: "Infant raj", revenue: 27480000, posterUrl: "/posters/274-francis-chapter-1.jpg" },
