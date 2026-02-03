@@ -49,7 +49,9 @@ const MovieDetail = () => {
   const synopsis = movie.synopsis || enriched?.synopsis;
   const runtimeMinutes = movie.runtimeMinutes || enriched?.runtimeMinutes;
   const languages = movie.languages || enriched?.languages;
-  const castList = (movie.castList && movie.castList.length) ? movie.castList : (enriched?.castList ?? (movie.actor ? movie.actor.split(',').map(s => s.trim()) : []));
+  // Build cast list from available sources and filter out meaningless entries like 'Unknown' or 'N/A'
+  const castListRaw = (movie.castList && movie.castList.length) ? movie.castList : (enriched?.castList ?? (movie.actor ? movie.actor.split(',').map(s => s.trim()) : []));
+  const castList = (castListRaw || []).map((c) => c.trim()).filter((c) => c && c.toLowerCase() !== 'unknown' && c.toLowerCase() !== 'n/a');
   const imdbId = movie.imdbId || enriched?.imdbId;
   const imdbRating = movie.imdbRating || enriched?.imdbRating;
   return (
@@ -135,12 +137,12 @@ const MovieDetail = () => {
             )}
 
             {/* Cast */}
-            {((movie.castList && movie.castList.length) || movie.actor) && (
+            {castList.length > 0 && (
               <div className="mb-6">
                 <h4 className="font-semibold mb-2">Cast</h4>
                 <div className="flex flex-wrap gap-2">
                         {castList.map((c, i) => (
-                    <div key={i} className="text-sm px-3 py-1 bg-muted/10 rounded">{c.trim()}</div>
+                    <div key={i} className="text-sm px-3 py-1 bg-muted/10 rounded">{c}</div>
                   ))}
                 </div>
               </div>
