@@ -146,21 +146,7 @@ const MovieDetail = () => {
               </div>
             )}
 
-            {/* External Links */}
-            <div className="flex gap-3 items-center mb-6">
-              <a href={`https://www.youtube.com/results?search_query=${encodeURIComponent(movie.title + ' trailer')}`} target="_blank" rel="noopener noreferrer">
-                <Button variant="outline">Watch Trailer</Button>
-              </a>
-              {imdbId ? (
-                <a href={`https://www.imdb.com/title/${imdbId}`} target="_blank" rel="noopener noreferrer">
-                  <Button variant="outline">View on IMDb</Button>
-                </a>
-              ) : (
-                <a href={`https://www.imdb.com/find?q=${encodeURIComponent(movie.title)}`} target="_blank" rel="noopener noreferrer">
-                  <Button variant="outline">Search on IMDb</Button>
-                </a>
-              )}
-            </div>
+
           </div>
         </div>
       </main>
